@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Hello from Flask</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+      <form action="/todo_list" method="post">
+         <input name="todo_item" placeholder="todo">
+         <button type="submit">Submit</button>
+       </form>
+
+       <ul>
+       {% for task in db %}
+       <li ><h2 style="display:inline">{{ task }} </h2>
+       <form style="display:inline" action="/delete" method="post">
+            <input type="hidden" name="task" value="{{ task }}"> 
+            <button type="submit">Delete</button>
+        </form>
+        <form style="display:inline"  action="/important" method="post">
+            <input type="hidden" name="task" value="{{ task }}"> 
+           <button type="submit">Important</button>
+        </form>
+        <form style="display:inline" action="/low_priority" method="post">
+            <input type="hidden" name="task" value="{{ task }}"> 
+           <button type="submit">Low priority</button>
+        </form>
+       {% else %}
+            <li><em>No tasks yet.</em>
+        {% endfor %}
+      </ul>
+    </body>
+</html>
